@@ -8,27 +8,19 @@ import javax.swing.table.DefaultTableModel;
 public class Member_List extends JFrame implements MouseListener,ActionListener{
 
     Vector v;   
-
-
     Vector cols;
-
-
     DefaultTableModel model;
-
-
     JTable jTable;
-
-
     JScrollPane pane;
-
-
     JPanel pbtn;
-
-
     JButton btnInsert;
 
     public Member_List(){
-        super("회원관리 프로그램  v0.1.1");
+        super("회원관리");
+
+        //v=getMemberList();
+               //MemberDAO 
+
         MemberDAO dao = new MemberDAO();
         v = dao.getMemberList();
         System.out.println("v="+v);
@@ -45,7 +37,9 @@ public class Member_List extends JFrame implements MouseListener,ActionListener{
         setSize(600,200);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+    }//end 생성자
+    
+    //JTable 컬럼
     public Vector getColumn(){
         Vector col = new Vector();
         col.add("아이디");
@@ -59,20 +53,26 @@ public class Member_List extends JFrame implements MouseListener,ActionListener{
         col.add("이메일");
         col.add("자기소개");
         return col;
-    }
+    } 	//getColumn
+    
+    //Jtable 내용 갱신 메서드
     public void jTableRefresh(){
         MemberDAO dao = new MemberDAO();
         DefaultTableModel model= new DefaultTableModel(dao.getMemberList(), getColumn());
         jTable.setModel(model);     
     }
+    
     public static void main(String[] args) {
         new Member_List();
-    }
+    } 	//main
+    
     @Override
     public void mouseClicked(MouseEvent e) {
+    	//mouseClicked만 사용
         int r = jTable.getSelectedRow();
         String id = (String) jTable.getValueAt(r, 0);
-        MemberProc mem = new MemberProc(id,this);
+        //
+        MemberProc mem = new MemberProc(id,this);  //아이디를 인자로 수정창 생성
     }
     @Override
     public void mouseEntered(MouseEvent e) {
@@ -92,9 +92,18 @@ public class Member_List extends JFrame implements MouseListener,ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+    	//버튼 클릭 시
         if(e.getSource() == btnInsert ){
-            new MemberProc(this);
+
+
+
+            /*테스트*/
+            //dao = new MemberDAO();            
+            //dao.userSelectAll(model);
+            //model.fireTableDataChanged();
+            //jTable.updateUI();            
+            //jTable.requestFocusInWindow();
+                   
         }
     }
 }

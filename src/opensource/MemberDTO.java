@@ -130,7 +130,8 @@ public class MemberDTO {
         this.intro = intro;
 
     }
-
+    
+    //DTO ∞¥√º »Æ¿Œ
     @Override
 
     public String toString() {
